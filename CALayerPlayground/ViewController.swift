@@ -38,10 +38,26 @@ class ViewController: UIViewController {
     return viewForLayer.layer
   }
 
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupLayer()
+  }
   @IBAction func tapGestureRecognized(_ sender: UITapGestureRecognizer) {
+    layer.shadowOpacity = layer.shadowOpacity == 0 ? 0.7 : 0
   }
   
   @IBAction func pinchGestureRecognized(_ sender: UIPinchGestureRecognizer) {
+    let offset : CGFloat = sender.scale < 1 ? 5.0 : -5.0
+    let oldFrame = layer.frame
+    let oldOrigin = oldFrame.origin
+    let newOrigin = CGPoint(x: oldOrigin.x + offset, y: oldOrigin.y + offset)
+    let newSize = CGSize(width: oldFrame.width + (offset * -2.0), height: oldFrame.height + (offset * -2.0))
+    let newFrame =  CGRect(origin: newOrigin, size: newSize)
+    if newFrame.width >= 100.0 && newFrame.width <= 300.0 {
+      layer.borderWidth -= offset
+      layer.cornerRadius += (offset / 2.0)
+      layer.frame = newFrame
+    }
 
   }
 
