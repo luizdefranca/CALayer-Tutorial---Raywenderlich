@@ -51,6 +51,8 @@ class ViewController: UIViewController {
     layer.borderColor = UIColor.red.cgColor
     layer.shadowOpacity = 0.5
     layer.shadowRadius = 10.0
+    layer.contents = UIImage(named: "star")?.cgImage
+    layer.contentsGravity = kCAGravityCenter
   }
 }
 
